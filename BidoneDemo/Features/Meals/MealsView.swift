@@ -114,8 +114,9 @@ struct MealCard: View {
             Text(meal.strMeal)
                 .font(.subheadline)
                 .fontWeight(.medium)
-                .lineLimit(2)
+                .lineLimit(2, reservesSpace: true)
                 .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
         }
     }
 }

@@ -125,7 +125,7 @@ struct MealDetailView: View {
                             .padding(.horizontal, 10)
                             .padding(.vertical, 4)
                             .background(Color.accentColor.opacity(0.1))
-                            .foregroundStyle(.background)
+                            .foregroundStyle(Color.accentColor)
                             .clipShape(Capsule())
                     }
                 }
