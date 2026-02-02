@@ -18,13 +18,13 @@ enum NetworkError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return "Invalid URL"
+            return String(localized: "Invalid URL")
         case .noData:
-            return "No data received"
+            return String(localized: "No data received")
         case .decodingError:
-            return "Failed to decode response"
+            return String(localized: "Failed to decode response")
         case .serverError(let code):
-            return "Server error with code: \(code)"
+            return String(localized: "Server error with code: \(code)")
         case .unknown(let error):
             return error.localizedDescription
         }
@@ -33,8 +33,6 @@ enum NetworkError: Error, LocalizedError {
 
 // MARK: - API Endpoints
 enum APIEndpoint {
-    static let baseURL = "https://www.themealdb.com/api/json/v1/1"
-    
     case categories
     case meals(category: String)
     case mealDetail(id: String)
@@ -42,11 +40,11 @@ enum APIEndpoint {
     var url: String {
         switch self {
         case .categories:
-            return "\(APIEndpoint.baseURL)/categories.php"
+            return "\(Constants.Network.baseURL)\(Constants.Network.Endpoints.categories)"
         case .meals(let category):
-            return "\(APIEndpoint.baseURL)/filter.php?c=\(category)"
+            return "\(Constants.Network.baseURL)\(Constants.Network.Endpoints.filter)?\(Constants.Network.QueryParams.category)=\(category)"
         case .mealDetail(let id):
-            return "\(APIEndpoint.baseURL)/lookup.php?i=\(id)"
+            return "\(Constants.Network.baseURL)\(Constants.Network.Endpoints.lookup)?\(Constants.Network.QueryParams.id)=\(id)"
         }
     }
 }

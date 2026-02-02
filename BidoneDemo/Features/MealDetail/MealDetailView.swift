@@ -35,25 +35,26 @@ struct MealDetailView: View {
             Color.clear
             
         case .loading:
-            ProgressView("Loading...")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            LoadingView()
             
         case .loaded(let detail):
             detailContent(detail)
             
         case .error(let message):
-            errorView(message: message)
+            ErrorView(message: message) {
+                store.send(.retry(id: meal.id))
+            }
         }
     }
     
     // MARK: - Detail Content
     private func detailContent(_ detail: MealDetail) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: Constants.Design.Spacing.xLarge) {
                 // Header Image
                 headerImage(detail)
                 
-                VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: Constants.Design.Spacing.xxLarge) {
                     // Tags and Info
                     infoSection(detail)
                     
@@ -74,7 +75,7 @@ struct MealDetailView: View {
                 }
                 .padding(.horizontal)
             }
-            .padding(.bottom, 32)
+            .padding(.bottom, Constants.Design.Spacing.xxxLarge)
         }
     }
     
@@ -86,31 +87,31 @@ struct MealDetailView: View {
                 .aspectRatio(contentMode: .fill)
         } placeholder: {
             Rectangle()
-                .foregroundStyle(.secondary.opacity(0.3))
+                .foregroundStyle(.secondary.opacity(Constants.Design.Opacity.placeholder))
                 .overlay {
                     ProgressView()
                 }
         }
-        .frame(height: 250)
+        .frame(height: Constants.Design.Size.headerImageHeight)
         .clipped()
     }
     
     // MARK: - Info Section
     private func infoSection(_ detail: MealDetail) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: Constants.Design.Spacing.regular) {
             Text(detail.strMeal)
                 .font(.title2)
                 .fontWeight(.bold)
             
-            HStack(spacing: 12) {
+            HStack(spacing: Constants.Design.Spacing.regular) {
                 if let category = detail.strCategory {
-                    Label(category, systemImage: "tag")
+                    Label(category, systemImage: Constants.Icons.tag)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
                 
                 if let area = detail.strArea {
-                    Label(area, systemImage: "globe")
+                    Label(area, systemImage: Constants.Icons.globe)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -118,13 +119,13 @@ struct MealDetailView: View {
             
             // Tags
             if !detail.tagsArray.isEmpty {
-                FlowLayout(spacing: 8) {
+                FlowLayout(spacing: Constants.Design.Spacing.medium) {
                     ForEach(detail.tagsArray, id: \.self) { tag in
                         Text(tag)
                             .font(.caption)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 4)
-                            .background(Color.accentColor.opacity(0.1))
+                            .padding(.horizontal, Constants.Design.TagPadding.horizontal)
+                            .padding(.vertical, Constants.Design.TagPadding.vertical)
+                            .background(Color.accentColor.opacity(Constants.Design.Opacity.backgroundLight))
                             .foregroundStyle(Color.accentColor)
                             .clipShape(Capsule())
                     }
@@ -135,11 +136,11 @@ struct MealDetailView: View {
     
     // MARK: - Ingredients Section
     private func ingredientsSection(_ detail: MealDetail) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Ingredients")
+        VStack(alignment: .leading, spacing: Constants.Design.Spacing.regular) {
+            Text(Constants.Strings.ingredientsTitle)
                 .font(.headline)
             
-            VStack(spacing: 8) {
+            VStack(spacing: Constants.Design.Spacing.medium) {
                 ForEach(Array(detail.ingredients.enumerated()), id: \.offset) { index, item in
                     HStack {
                         Text(item.ingredient)
@@ -151,10 +152,10 @@ struct MealDetailView: View {
                             .font(.body)
                             .foregroundStyle(.secondary)
                     }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
-                    .background(index % 2 == 0 ? Color.secondary.opacity(0.1) : Color.clear)
-                    .cornerRadius(8)
+                    .padding(.vertical, Constants.Design.Spacing.medium)
+                    .padding(.horizontal, Constants.Design.Spacing.regular)
+                    .background(index % 2 == 0 ? Color.secondary.opacity(Constants.Design.Opacity.backgroundLight) : Color.clear)
+                    .cornerRadius(Constants.Design.CornerRadius.small)
                 }
             }
         }
@@ -162,110 +163,42 @@ struct MealDetailView: View {
     
     // MARK: - Instructions Section
     private func instructionsSection(_ instructions: String) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Instructions")
+        VStack(alignment: .leading, spacing: Constants.Design.Spacing.regular) {
+            Text(Constants.Strings.instructionsTitle)
                 .font(.headline)
             
             Text(instructions)
                 .font(.body)
                 .foregroundStyle(.secondary)
-                .lineSpacing(4)
+                .lineSpacing(Constants.Design.instructionLineSpacing)
         }
     }
     
     // MARK: - YouTube Section
     private func youtubeSection(_ urlString: String) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Video")
+        VStack(alignment: .leading, spacing: Constants.Design.Spacing.regular) {
+            Text(Constants.Strings.videoTitle)
                 .font(.headline)
             
             if let url = URL(string: urlString) {
                 Link(destination: url) {
                     HStack {
-                        Image(systemName: "play.circle.fill")
+                        Image(systemName: Constants.Icons.play)
                             .font(.title2)
                         
-                        Text("Watch on YouTube")
+                        Text(Constants.Strings.watchOnYouTube)
                             .font(.body)
                         
                         Spacer()
                         
-                        Image(systemName: "arrow.up.right")
+                        Image(systemName: Constants.Icons.externalLink)
                     }
                     .padding()
-                    .background(Color.red.opacity(0.1))
-                    .foregroundStyle(.red)
-                    .cornerRadius(12)
+                    .background(Constants.Colors.youtubeRed.opacity(Constants.Design.Opacity.backgroundLight))
+                    .foregroundStyle(Constants.Colors.youtubeRed)
+                    .cornerRadius(Constants.Design.CornerRadius.medium)
                 }
             }
-        }
-    }
-    
-    // MARK: - Error View
-    private func errorView(message: String) -> some View {
-        VStack(spacing: 16) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.largeTitle)
-                .foregroundStyle(.secondary)
-            
-            Text(message)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-            
-            Button("Retry") {
-                store.send(.retry(id: meal.id))
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-// MARK: - Flow Layout (for Tags)
-struct FlowLayout: Layout {
-    var spacing: CGFloat = 8
-    
-    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
-        let result = FlowResult(in: proposal.width ?? 0, spacing: spacing, subviews: subviews)
-        return result.size
-    }
-    
-    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
-        let result = FlowResult(in: bounds.width, spacing: spacing, subviews: subviews)
-        for (index, subview) in subviews.enumerated() {
-            subview.place(at: CGPoint(x: bounds.minX + result.positions[index].x,
-                                      y: bounds.minY + result.positions[index].y),
-                         proposal: .unspecified)
-        }
-    }
-    
-    struct FlowResult {
-        var size: CGSize = .zero
-        var positions: [CGPoint] = []
-        
-        init(in width: CGFloat, spacing: CGFloat, subviews: Subviews) {
-            var x: CGFloat = 0
-            var y: CGFloat = 0
-            var rowHeight: CGFloat = 0
-            
-            for subview in subviews {
-                let size = subview.sizeThatFits(.unspecified)
-                
-                if x + size.width > width, x > 0 {
-                    x = 0
-                    y += rowHeight + spacing
-                    rowHeight = 0
-                }
-                
-                positions.append(CGPoint(x: x, y: y))
-                rowHeight = max(rowHeight, size.height)
-                x += size.width + spacing
-                
-                self.size.width = max(self.size.width, x - spacing)
-            }
-            
-            self.size.height = y + rowHeight
         }
     }
 }

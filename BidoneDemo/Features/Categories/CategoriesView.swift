@@ -16,7 +16,7 @@ struct CategoriesView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle("Categories")
+                .navigationTitle(Constants.Strings.categoriesTitle)
         }
         .onAppear {
             if case .idle = store.state {
@@ -33,14 +33,15 @@ struct CategoriesView: View {
             Color.clear
             
         case .loading:
-            ProgressView("Loading...")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            LoadingView()
             
         case .loaded(let categories):
             categoryList(categories)
             
         case .error(let message):
-            errorView(message: message)
+            ErrorView(message: message) {
+                store.send(.retry)
+            }
         }
     }
     
@@ -56,26 +57,6 @@ struct CategoriesView: View {
             MealsView(category: category)
         }
     }
-    
-    // MARK: - Error View
-    private func errorView(message: String) -> some View {
-        VStack(spacing: 16) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.largeTitle)
-                .foregroundStyle(.secondary)
-            
-            Text(message)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-            
-            Button("Retry") {
-                store.send(.retry)
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
 }
 
 // MARK: - Category Row
@@ -83,22 +64,22 @@ struct CategoryRow: View {
     let category: Category
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: Constants.Design.Spacing.regular) {
             AsyncImage(url: URL(string: category.strCategoryThumb)) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } placeholder: {
                 Rectangle()
-                    .foregroundStyle(.secondary.opacity(0.3))
+                    .foregroundStyle(.secondary.opacity(Constants.Design.Opacity.placeholder))
                     .overlay {
                         ProgressView()
                     }
             }
-            .frame(width: 60, height: 60)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(width: Constants.Design.Size.thumbnailSize, height: Constants.Design.Size.thumbnailSize)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.Design.CornerRadius.small))
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: Constants.Design.Spacing.small) {
                 Text(category.strCategory)
                     .font(.headline)
                 
@@ -108,7 +89,7 @@ struct CategoryRow: View {
                     .lineLimit(2)
             }
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, Constants.Design.Spacing.small)
     }
 }
 

@@ -17,8 +17,8 @@ struct MealsView: View {
     
     // MARK: - Grid Columns
     private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.flexible(), spacing: Constants.Design.Spacing.large),
+        GridItem(.flexible(), spacing: Constants.Design.Spacing.large)
     ]
     
     // MARK: - Body
@@ -41,21 +41,22 @@ struct MealsView: View {
             Color.clear
             
         case .loading:
-            ProgressView("Loading...")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            LoadingView()
             
         case .loaded(let meals):
             mealGrid(meals)
             
         case .error(let message):
-            errorView(message: message)
+            ErrorView(message: message) {
+                store.send(.retry(category: category.strCategory))
+            }
         }
     }
     
     // MARK: - Meal Grid
     private func mealGrid(_ meals: [Meal]) -> some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 16) {
+            LazyVGrid(columns: columns, spacing: Constants.Design.Spacing.large) {
                 ForEach(meals) { meal in
                     NavigationLink(value: meal) {
                         MealCard(meal: meal)
@@ -69,26 +70,6 @@ struct MealsView: View {
             MealDetailView(meal: meal)
         }
     }
-    
-    // MARK: - Error View
-    private func errorView(message: String) -> some View {
-        VStack(spacing: 16) {
-            Image(systemName: "exclamationmark.triangle")
-                .font(.largeTitle)
-                .foregroundStyle(.secondary)
-            
-            Text(message)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-            
-            Button("Retry") {
-                store.send(.retry(category: category.strCategory))
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
 }
 
 // MARK: - Meal Card
@@ -96,20 +77,20 @@ struct MealCard: View {
     let meal: Meal
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: Constants.Design.Spacing.medium) {
             AsyncImage(url: URL(string: meal.strMealThumb)) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             } placeholder: {
                 Rectangle()
-                    .foregroundStyle(.secondary.opacity(0.3))
+                    .foregroundStyle(.secondary.opacity(Constants.Design.Opacity.placeholder))
                     .overlay {
                         ProgressView()
                     }
             }
-            .frame(height: 140)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .frame(height: Constants.Design.Size.mealCardImageHeight)
+            .clipShape(RoundedRectangle(cornerRadius: Constants.Design.CornerRadius.medium))
             
             Text(meal.strMeal)
                 .font(.subheadline)
