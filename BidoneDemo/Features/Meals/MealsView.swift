@@ -62,6 +62,7 @@ struct MealsView: View {
                         MealCard(meal: meal)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(meal.strMeal)
                 }
             }
             .padding()
@@ -91,6 +92,7 @@ struct MealCard: View {
             }
             .frame(height: Constants.Design.Size.mealCardImageHeight)
             .clipShape(RoundedRectangle(cornerRadius: Constants.Design.CornerRadius.medium))
+            .accessibilityHidden(true)
             
             Text(meal.strMeal)
                 .font(.subheadline)
@@ -99,6 +101,7 @@ struct MealCard: View {
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 

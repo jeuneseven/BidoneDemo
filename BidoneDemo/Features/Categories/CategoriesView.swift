@@ -78,6 +78,7 @@ struct CategoryRow: View {
             }
             .frame(width: Constants.Design.Size.thumbnailSize, height: Constants.Design.Size.thumbnailSize)
             .clipShape(RoundedRectangle(cornerRadius: Constants.Design.CornerRadius.small))
+            .accessibilityHidden(true)
             
             VStack(alignment: .leading, spacing: Constants.Design.Spacing.small) {
                 Text(category.strCategory)
@@ -90,6 +91,7 @@ struct CategoryRow: View {
             }
         }
         .padding(.vertical, Constants.Design.Spacing.small)
+        .accessibilityElement(children: .combine)
     }
 }
 

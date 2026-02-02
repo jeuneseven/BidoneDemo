@@ -16,6 +16,7 @@ struct ErrorView: View {
             Image(systemName: Constants.Icons.error)
                 .font(.largeTitle)
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
             
             Text(message)
                 .foregroundStyle(.secondary)
