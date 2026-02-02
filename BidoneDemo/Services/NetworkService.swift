@@ -50,14 +50,14 @@ enum APIEndpoint {
 }
 
 // MARK: - Network Service Protocol
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: Sendable {
     func fetchCategories() async throws -> [Category]
     func fetchMeals(category: String) async throws -> [Meal]
     func fetchMealDetail(id: String) async throws -> MealDetail?
 }
 
 // MARK: - Network Service Implementation
-final class NetworkService: NetworkServiceProtocol {
+final class NetworkService: NetworkServiceProtocol, Sendable {
     
     static let shared = NetworkService()
     

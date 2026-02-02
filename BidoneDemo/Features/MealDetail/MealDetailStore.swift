@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 
+@MainActor
 @Observable
 final class MealDetailStore {
     
@@ -40,7 +41,7 @@ final class MealDetailStore {
         currentMealId = id
         state = .loading
         
-        Task { @MainActor in
+        Task {
             do {
                 if let detail = try await networkService.fetchMealDetail(id: id) {
                     state = .loaded(detail)

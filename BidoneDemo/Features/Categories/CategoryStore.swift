@@ -8,6 +8,7 @@
 import Foundation
 import Observation
 
+@MainActor
 @Observable
 final class CategoriesStore {
     
@@ -34,7 +35,7 @@ final class CategoriesStore {
     private func loadCategories() {
         state = .loading
         
-        Task { @MainActor in
+        Task {
             do {
                 let categories = try await networkService.fetchCategories()
                 state = .loaded(categories)
