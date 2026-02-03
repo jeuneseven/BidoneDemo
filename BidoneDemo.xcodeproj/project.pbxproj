@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D89C89682F3172F300B6B54B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D89C89672F3172F300B6B54B /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D85C70BF2F3061BD00C58FD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		D85C70B12F3061BA00C58FD2 /* BidoneDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BidoneDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C70BE2F3061BD00C58FD2 /* BidoneDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BidoneDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C70C82F3061BD00C58FD2 /* BidoneDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BidoneDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D89C89672F3172F300B6B54B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -79,6 +84,7 @@
 				D85C70C12F3061BD00C58FD2 /* BidoneDemoTests */,
 				D85C70CB2F3061BD00C58FD2 /* BidoneDemoUITests */,
 				D85C70B22F3061BA00C58FD2 /* Products */,
+				D89C89672F3172F300B6B54B /* Localizable.xcstrings */,
 			);
 			sourceTree = "<group>";
 		};
@@ -192,6 +198,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = D85C70A82F3061BA00C58FD2;
 			minimizedProjectReferenceProxies = 1;
@@ -212,6 +219,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89C89682F3172F300B6B54B /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

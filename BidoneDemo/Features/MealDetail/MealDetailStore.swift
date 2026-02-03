@@ -46,7 +46,7 @@ final class MealDetailStore {
                 if let detail = try await networkService.fetchMealDetail(id: id) {
                     state = .loaded(detail)
                 } else {
-                    state = .error("Meal not found")
+                    state = .error(Constants.Strings.mealNotFound)
                 }
             } catch {
                 state = .error(error.localizedDescription)

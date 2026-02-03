@@ -94,7 +94,7 @@ struct MealDetailView: View {
         }
         .frame(height: Constants.Design.Size.headerImageHeight)
         .clipped()
-        .accessibilityLabel("\(detail.strMeal) photo")
+        .accessibilityLabel(Constants.Strings.Accessibility.mealPhoto(detail.strMeal))
     }
     
     // MARK: - Info Section
@@ -129,7 +129,7 @@ struct MealDetailView: View {
                             .background(Color.accentColor.opacity(Constants.Design.Opacity.backgroundLight))
                             .foregroundStyle(Color.accentColor)
                             .clipShape(Capsule())
-                            .accessibilityLabel("Tag: \(tag)")
+                            .accessibilityLabel(Constants.Strings.Accessibility.tag(tag))
                     }
                 }
             }
@@ -159,7 +159,7 @@ struct MealDetailView: View {
                     .background(index % 2 == 0 ? Color.secondary.opacity(Constants.Design.Opacity.backgroundLight) : Color.clear)
                     .cornerRadius(Constants.Design.CornerRadius.small)
                     .accessibilityElement(children: .combine)
-                    .accessibilityLabel("\(item.ingredient), \(item.measure)")
+                    .accessibilityLabel(Constants.Strings.Accessibility.ingredientRow(item.ingredient, item.measure))
                 }
             }
         }
@@ -202,7 +202,7 @@ struct MealDetailView: View {
                     .foregroundStyle(Constants.Colors.youtubeRed)
                     .cornerRadius(Constants.Design.CornerRadius.medium)
                 }
-                .accessibilityLabel("Watch recipe video on YouTube")
+                .accessibilityLabel(Constants.Strings.Accessibility.youtubeLink)
             }
         }
     }

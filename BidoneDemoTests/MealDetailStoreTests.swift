@@ -78,7 +78,7 @@ struct MealDetailStoreTests {
         
         // Then
         if case .error(let message) = store.state {
-            #expect(message == "Meal not found")
+            #expect(message == Constants.Strings.mealNotFound)
         } else {
             Issue.record("Expected error state, got \(store.state)")
         }

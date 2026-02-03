@@ -71,6 +71,26 @@ enum Constants {
         
         // MARK: Loading State
         static let loadingMessage = String(localized: "Loading...")
+        
+        // MARK: Error Messages
+        static let mealNotFound = String(localized: "Meal not found")
+        
+        // MARK: Accessibility
+        enum Accessibility {
+            static func mealPhoto(_ name: String) -> String {
+                String(localized: "\(name) photo")
+            }
+            
+            static func tag(_ name: String) -> String {
+                String(localized: "Tag: \(name)")
+            }
+            
+            static func ingredientRow(_ ingredient: String, _ measure: String) -> String {
+                String(localized: "\(ingredient), \(measure)")
+            }
+            
+            static let youtubeLink = String(localized: "Watch recipe video on YouTube")
+        }
     }
     
     // MARK: - Icons
