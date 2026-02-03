@@ -1,0 +1,9 @@
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output
+
+# Bundler
+vendor/bundle
+.bundle
+Gemfile.lock
