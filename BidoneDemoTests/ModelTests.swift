@@ -11,11 +11,9 @@ import Foundation
 
 @Suite("Model Tests")
 struct ModelTests {
-    
     // MARK: - MealDetail Ingredients Tests
     @Suite("MealDetail Ingredients")
     struct IngredientsTests {
-        
         @Test("Ingredients returns non-empty ingredient-measure pairs")
         func testIngredientsComputed() {
             let detail = TestData.mealDetail1
@@ -64,7 +62,6 @@ struct ModelTests {
     // MARK: - MealDetail Tags Tests
     @Suite("MealDetail Tags")
     struct TagsTests {
-        
         @Test("Tags parses comma-separated string")
         func testTagsArrayComputed() {
             let detail = TestData.mealDetail1

@@ -13,7 +13,7 @@ enum CategoriesState: Equatable {
     case loaded([Category])
     case error(String)
     
-    static func == (lhs: CategoriesState, rhs: CategoriesState) -> Bool {
+    static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
         case (.idle, .idle):
             return true

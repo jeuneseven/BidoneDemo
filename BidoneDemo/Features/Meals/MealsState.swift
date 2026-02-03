@@ -13,7 +13,7 @@ enum MealsState: Equatable {
     case loaded([Meal])
     case error(String)
     
-    static func == (lhs: MealsState, rhs: MealsState) -> Bool {
+    static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
         case (.idle, .idle):
             return true

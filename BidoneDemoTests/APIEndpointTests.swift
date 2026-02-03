@@ -11,7 +11,6 @@ import Foundation
 
 @Suite("APIEndpoint Tests")
 struct APIEndpointTests {
-    
     @Test("Categories endpoint builds correct URL")
     func testCategoriesURL() {
         let url = APIEndpoint.categories.url

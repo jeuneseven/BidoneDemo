@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MealDetailView: View {
-    
     // MARK: - Properties
     let meal: Meal
     
@@ -156,7 +155,7 @@ struct MealDetailView: View {
                     }
                     .padding(.vertical, Constants.Design.Spacing.medium)
                     .padding(.horizontal, Constants.Design.Spacing.regular)
-                    .background(index % 2 == 0 ? Color.secondary.opacity(Constants.Design.Opacity.backgroundLight) : Color.clear)
+                    .background(index.isMultiple(of: 2) ? Color.secondary.opacity(Constants.Design.Opacity.backgroundLight) : Color.clear)
                     .cornerRadius(Constants.Design.CornerRadius.small)
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel(Constants.Strings.Accessibility.ingredientRow(item.ingredient, item.measure))

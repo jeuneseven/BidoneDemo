@@ -9,10 +9,8 @@ import Foundation
 import SwiftUI
 
 enum Constants {
-    
     // MARK: - Design System
     enum Design {
-        
         // MARK: Spacing
         enum Spacing {
             static let small: CGFloat = 4
@@ -56,7 +54,6 @@ enum Constants {
     
     // MARK: - Strings
     enum Strings {
-        
         // MARK: Navigation Titles
         static let categoriesTitle = String(localized: "Categories")
         

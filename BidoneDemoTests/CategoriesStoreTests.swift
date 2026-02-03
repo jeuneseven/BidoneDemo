@@ -12,7 +12,6 @@ import Foundation
 @Suite("CategoriesStore Tests")
 @MainActor
 struct CategoriesStoreTests {
-    
     // MARK: - Properties
     private let mockService: MockNetworkService
     private let store: CategoriesStore

@@ -10,7 +10,6 @@ import Foundation
 @testable import BidoneDemo
 
 final class MockNetworkService: NetworkServiceProtocol {
-    
     // MARK: - Configuration
     var shouldFail = false
     var errorToThrow: Error = NetworkError.unknown(NSError(domain: "Test", code: -1))

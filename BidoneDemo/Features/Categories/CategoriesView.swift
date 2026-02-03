@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CategoriesView: View {
-    
     // MARK: - Store
     @State private var store = CategoriesStore()
     

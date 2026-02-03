@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct MealsView: View {
-    
+struct MealsView: View {    
     // MARK: - Properties
     let category: Category
     

@@ -12,7 +12,6 @@ import Testing
 typealias MealCategory = BidoneDemo.Category
 
 enum TestData {
-    
     // MARK: - Categories
     static let category1 = MealCategory(
         idCategory: "1",

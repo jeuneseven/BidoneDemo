@@ -11,14 +11,12 @@ import Foundation
 
 @Suite("JSON Decoding Tests")
 struct JSONDecodingTests {
-    
     // MARK: - CategoriesResponse
     @Suite("CategoriesResponse Decoding")
     struct CategoriesResponseTests {
-        
         @Test("Decodes valid categories JSON")
         func testDecodeCategoriesResponse() throws {
-            let json = """
+            let json = Data("""
             {
                 "categories": [
                     {
@@ -29,7 +27,7 @@ struct JSONDecodingTests {
                     }
                 ]
             }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(CategoriesResponse.self, from: json)
             #expect(response.categories.count == 1)
@@ -39,9 +37,9 @@ struct JSONDecodingTests {
         
         @Test("Decodes empty categories array")
         func testDecodeEmptyCategories() throws {
-            let json = """
+            let json = Data("""
             { "categories": [] }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(CategoriesResponse.self, from: json)
             #expect(response.categories.isEmpty)
@@ -51,10 +49,9 @@ struct JSONDecodingTests {
     // MARK: - MealsResponse
     @Suite("MealsResponse Decoding")
     struct MealsResponseTests {
-        
         @Test("Decodes valid meals JSON")
         func testDecodeMealsResponse() throws {
-            let json = """
+            let json = Data("""
             {
                 "meals": [
                     {
@@ -64,7 +61,7 @@ struct JSONDecodingTests {
                     }
                 ]
             }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(MealsResponse.self, from: json)
             #expect(response.meals?.count == 1)
@@ -73,9 +70,9 @@ struct JSONDecodingTests {
         
         @Test("Decodes null meals as nil")
         func testDecodeNullMeals() throws {
-            let json = """
+            let json = Data("""
             { "meals": null }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(MealsResponse.self, from: json)
             #expect(response.meals == nil)
@@ -88,7 +85,7 @@ struct JSONDecodingTests {
         
         @Test("Decodes meal detail with all optional fields nil")
         func testDecodeMinimalMealDetail() throws {
-            let json = """
+            let json = Data("""
             {
                 "meals": [
                     {
@@ -118,7 +115,7 @@ struct JSONDecodingTests {
                     }
                 ]
             }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(MealDetailResponse.self, from: json)
             let detail = try #require(response.meals?.first)
@@ -131,9 +128,9 @@ struct JSONDecodingTests {
         
         @Test("Decodes null meals array as nil")
         func testDecodeNullMealDetail() throws {
-            let json = """
+            let json = Data("""
             { "meals": null }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(MealDetailResponse.self, from: json)
             #expect(response.meals == nil)
@@ -141,7 +138,7 @@ struct JSONDecodingTests {
         
         @Test("Decodes meal detail with empty string ingredients from API")
         func testDecodeEmptyStringIngredients() throws {
-            let json = """
+            let json = Data("""
             {
                 "meals": [
                     {
@@ -181,7 +178,7 @@ struct JSONDecodingTests {
                     }
                 ]
             }
-            """.data(using: .utf8)!
+            """.utf8)
             
             let response = try JSONDecoder().decode(MealDetailResponse.self, from: json)
             let detail = try #require(response.meals?.first)

@@ -11,7 +11,6 @@ import Observation
 @MainActor
 @Observable
 final class MealDetailStore {
-    
     // MARK: - State
     private(set) var state: MealDetailState = .idle
     

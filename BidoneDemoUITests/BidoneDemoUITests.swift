@@ -8,7 +8,6 @@
 import XCTest
 
 final class BidoneDemoUITests: XCTestCase {
-    
     private var app: XCUIApplication!
     
     override func setUpWithError() throws {
