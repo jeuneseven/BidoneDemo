@@ -8,6 +8,7 @@ excluded:
   - DerivedData
   - Pods
   - Carthage
+  - BidoneDemoUITests/SnapshotHelper.swift
 
 # ─── Disabled Rules ─────────────────────────────────────
 disabled_rules:

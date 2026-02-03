@@ -10,9 +10,11 @@ import Foundation
 @testable import BidoneDemo
 
 @Suite("JSON Decoding Tests")
+@MainActor
 struct JSONDecodingTests {
     // MARK: - CategoriesResponse
     @Suite("CategoriesResponse Decoding")
+    @MainActor
     struct CategoriesResponseTests {
         @Test("Decodes valid categories JSON")
         func testDecodeCategoriesResponse() throws {
@@ -48,6 +50,7 @@ struct JSONDecodingTests {
     
     // MARK: - MealsResponse
     @Suite("MealsResponse Decoding")
+    @MainActor
     struct MealsResponseTests {
         @Test("Decodes valid meals JSON")
         func testDecodeMealsResponse() throws {
@@ -81,8 +84,8 @@ struct JSONDecodingTests {
     
     // MARK: - MealDetailResponse
     @Suite("MealDetailResponse Decoding")
+    @MainActor
     struct MealDetailResponseTests {
-        
         @Test("Decodes meal detail with all optional fields nil")
         func testDecodeMinimalMealDetail() throws {
             let json = Data("""
