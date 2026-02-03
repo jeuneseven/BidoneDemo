@@ -1,0 +1,37 @@
+# fastlane/Fastfile
+
+default_platform(:ios)
+
+platform :ios do
+  # ──────────────────────────────────────────────
+  # Screenshots
+  # ──────────────────────────────────────────────
+  desc "Capture localized screenshots"
+  lane :screenshots do
+    capture_screenshots
+  end
+
+  # ──────────────────────────────────────────────
+  # Tests
+  # ──────────────────────────────────────────────
+  desc "Run all unit tests"
+  lane :tests do
+    run_tests(
+      project: "BidoneDemo.xcodeproj",
+      scheme: "BidoneDemo",
+      device: "iPhone 16",
+      only_testing: ["BidoneDemoTests"],
+      code_coverage: true,
+      output_types: "junit",
+      output_directory: "./fastlane/test_output"
+    )
+  end
+
+  # ──────────────────────────────────────────────
+  # CI — full pipeline
+  # ──────────────────────────────────────────────
+  desc "CI pipeline: lint → build → test"
+  lane :ci do
+    tests
+  end
+end
