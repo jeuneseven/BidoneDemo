@@ -61,17 +61,19 @@ struct MealsColumnView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: Constants.Design.Spacing.large) {
                 ForEach(meals) { meal in
-                    NavigationLink(value: meal) {
+                    NavigationLink {
+                        MealDetailView(meal: meal)
+                    } label: {
                         MealCard(meal: meal)
                     }
                     .buttonStyle(.plain)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        selectedMeal = meal
+                    })
                     .accessibilityLabel(meal.strMeal)
                 }
             }
             .padding()
-        }
-        .navigationDestination(for: Meal.self) { meal in
-            MealDetailView(meal: meal)
         }
     }
 }

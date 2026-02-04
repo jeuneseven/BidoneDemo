@@ -34,15 +34,20 @@ struct ContentView: View {
                 )
             }
         } detail: {
-            if let meal = selectedMeal {
+            if let meal = selectedMeal, selectedCategory != nil {
                 MealDetailView(meal: meal)
-                    .id(meal.id)
+                    .id("\(selectedCategory!.id)-\(meal.id)")
             } else {
                 ContentUnavailableView(
                     Constants.Strings.selectMealTitle,
                     systemImage: Constants.Icons.meal,
                     description: Text(Constants.Strings.selectMealDescription)
                 )
+            }
+        }
+        .onChange(of: selectedCategory) { _, _ in
+            Task { @MainActor in
+                selectedMeal = nil
             }
         }
         .navigationSplitViewStyle(.balanced)
