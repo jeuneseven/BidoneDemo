@@ -126,7 +126,7 @@ Automated screenshot capture for 4 key screens across iPhone 17 Pro and iPad Pro
 
 ### Prerequisites
 
-- Xcode 16+ (developed with Xcode 26)
+- Xcode 16+
 - iOS 17.0+ deployment target
 
 ### Run
@@ -189,6 +189,7 @@ All design tokens (spacing, corner radii, colors), strings, and network configur
 
 ## Roadmap
 
+- [ ] **Local search** — Filter categories and meals by name with `.searchable`
 - [ ] **Pull-to-refresh** — Add `.refreshable` to lists for intuitive content refresh
 - [ ] **SPM modularization with TCA** — Extract features into Swift packages using [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) for scalable state management and modular codebase
 - [ ] **Image caching** — Replace `AsyncImage` with a caching layer for smoother scrolling
@@ -197,4 +198,4 @@ All design tokens (spacing, corner radii, colors), strings, and network configur
 
 ## License
 
-This project is a technical demo for interview purposes.s
+This project is a technical demo for interview purposes.
