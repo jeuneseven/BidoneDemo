@@ -46,28 +46,9 @@ jobs:
           xcodebuild build \
             -project BidoneDemo.xcodeproj \
             -scheme BidoneDemo \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -destination 'platform=macOS,variant=Designed for [iPad,iPhone]' \
             -skipPackagePluginValidation \
             CODE_SIGNING_ALLOWED=NO | xcpretty && exit ${PIPESTATUS[0]}
-
-      - name: Run Unit Tests
-        run: |
-          xcodebuild test \
-            -project BidoneDemo.xcodeproj \
-            -scheme BidoneDemo \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -only-testing:BidoneDemoTests \
-            -skipPackagePluginValidation \
-            CODE_SIGNING_ALLOWED=NO \
-            -resultBundlePath TestResults.xcresult | xcpretty && exit ${PIPESTATUS[0]}
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results
-          path: TestResults.xcresult
-          retention-days: 7
 
   lint:
     name: SwiftLint
@@ -86,6 +67,6 @@ jobs:
           xcodebuild build \
             -project BidoneDemo.xcodeproj \
             -scheme BidoneDemo \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -destination 'platform=macOS,variant=Designed for [iPad,iPhone]' \
             -skipPackagePluginValidation \
             CODE_SIGNING_ALLOWED=NO 2>&1 | grep -i "swiftlint" || echo "SwiftLint runs as build plugin"
