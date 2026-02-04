@@ -121,6 +121,50 @@
         }
       }
     },
+    "Select a Category" : {
+      "comment" : "Placeholder title when no category is selected on iPad",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择分类"
+          }
+        }
+      }
+    },
+    "Choose a category from the sidebar to browse meals." : {
+      "comment" : "Placeholder description when no category is selected on iPad",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从侧边栏选择一个分类来浏览菜品。"
+          }
+        }
+      }
+    },
+    "Select a Meal" : {
+      "comment" : "Placeholder title when no meal is selected on iPad",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择菜品"
+          }
+        }
+      }
+    },
+    "Choose a meal to see its details." : {
+      "comment" : "Placeholder description when no meal is selected on iPad",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择一道菜品查看详情。"
+          }
+        }
+      }
+    },
     "%@ photo" : {
       "comment" : "Accessibility label for meal header image",
       "localizations" : {

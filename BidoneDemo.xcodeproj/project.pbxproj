@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D89C89682F3172F300B6B54B /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D89C89672F3172F300B6B54B /* Localizable.xcstrings */; };
+		D8063E162F32F4ED007592AE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D8063E152F32F4ED007592AE /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,10 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D8063E152F32F4ED007592AE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D85C70B12F3061BA00C58FD2 /* BidoneDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BidoneDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C70BE2F3061BD00C58FD2 /* BidoneDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BidoneDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85C70C82F3061BD00C58FD2 /* BidoneDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BidoneDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D89C89672F3172F300B6B54B /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -80,11 +80,11 @@
 		D85C70A82F3061BA00C58FD2 = {
 			isa = PBXGroup;
 			children = (
+				D8063E152F32F4ED007592AE /* Localizable.xcstrings */,
 				D85C70B32F3061BA00C58FD2 /* BidoneDemo */,
 				D85C70C12F3061BD00C58FD2 /* BidoneDemoTests */,
 				D85C70CB2F3061BD00C58FD2 /* BidoneDemoUITests */,
 				D85C70B22F3061BA00C58FD2 /* Products */,
-				D89C89672F3172F300B6B54B /* Localizable.xcstrings */,
 			);
 			sourceTree = "<group>";
 		};
@@ -220,7 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D89C89682F3172F300B6B54B /* Localizable.xcstrings in Resources */,
+				D8063E162F32F4ED007592AE /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +441,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.seven.BidoneDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -473,6 +476,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.seven.BidoneDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -540,6 +546,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.seven.BidoneDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -559,6 +568,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.seven.BidoneDemoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;

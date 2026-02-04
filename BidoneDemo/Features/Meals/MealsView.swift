@@ -7,19 +7,20 @@
 
 import SwiftUI
 
-struct MealsView: View {    
+// MARK: - Meals Column (used in NavigationSplitView)
+struct MealsColumnView: View {
     // MARK: - Properties
     let category: Category
-    
+    @Binding var selectedMeal: Meal?
+
     // MARK: - Store
     @State private var store = MealsStore()
-    
-    // MARK: - Grid Columns
+
+    // MARK: - Grid Columns (adaptive for iPhone and iPad)
     private let columns = [
-        GridItem(.flexible(), spacing: Constants.Design.Spacing.large),
-        GridItem(.flexible(), spacing: Constants.Design.Spacing.large)
+        GridItem(.adaptive(minimum: Constants.Design.Size.mealCardMinWidth), spacing: Constants.Design.Spacing.large)
     ]
-    
+
     // MARK: - Body
     var body: some View {
         content
@@ -30,28 +31,31 @@ struct MealsView: View {
                     store.send(.loadMeals(category: category.strCategory))
                 }
             }
+            .onChange(of: category) { _, newCategory in
+                store.send(.loadMeals(category: newCategory.strCategory))
+            }
     }
-    
+
     // MARK: - Content
     @ViewBuilder
     private var content: some View {
         switch store.state {
         case .idle:
             Color.clear
-            
+
         case .loading:
             LoadingView()
-            
+
         case .loaded(let meals):
             mealGrid(meals)
-            
+
         case .error(let message):
             ErrorView(message: message) {
                 store.send(.retry(category: category.strCategory))
             }
         }
     }
-    
+
     // MARK: - Meal Grid
     private func mealGrid(_ meals: [Meal]) -> some View {
         ScrollView {
@@ -72,10 +76,21 @@ struct MealsView: View {
     }
 }
 
+// MARK: - Standalone MealsView (for previews)
+struct MealsView: View {
+    let category: Category
+
+    var body: some View {
+        NavigationStack {
+            MealsColumnView(category: category, selectedMeal: .constant(nil))
+        }
+    }
+}
+
 // MARK: - Meal Card
 struct MealCard: View {
     let meal: Meal
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: Constants.Design.Spacing.medium) {
             AsyncImage(url: URL(string: meal.strMealThumb)) { image in
@@ -92,7 +107,7 @@ struct MealCard: View {
             .frame(height: Constants.Design.Size.mealCardImageHeight)
             .clipShape(RoundedRectangle(cornerRadius: Constants.Design.CornerRadius.medium))
             .accessibilityHidden(true)
-            
+
             Text(meal.strMeal)
                 .font(.subheadline)
                 .fontWeight(.medium)
@@ -107,11 +122,14 @@ struct MealCard: View {
 // MARK: - Preview
 #Preview {
     NavigationStack {
-        MealsView(category: Category(
-            idCategory: "1",
-            strCategory: "Beef",
-            strCategoryThumb: "https://www.themealdb.com/images/category/beef.png",
-            strCategoryDescription: "Beef is meat from cattle."
-        ))
+        MealsColumnView(
+            category: Category(
+                idCategory: "1",
+                strCategory: "Beef",
+                strCategoryThumb: "https://www.themealdb.com/images/category/beef.png",
+                strCategoryDescription: "Beef is meat from cattle."
+            ),
+            selectedMeal: .constant(nil)
+        )
     }
 }
