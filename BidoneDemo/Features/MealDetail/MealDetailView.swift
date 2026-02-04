@@ -24,6 +24,9 @@ struct MealDetailView: View {
                     store.send(.loadDetail(id: meal.id))
                 }
             }
+            .onChange(of: meal.id) { _, newId in
+                store.send(.loadDetail(id: newId))
+            }
     }
     
     // MARK: - Content
