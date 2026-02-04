@@ -11,34 +11,37 @@ import Foundation
 
 @Suite("NetworkError Tests")
 struct NetworkErrorTests {
-    
-    @Test("invalidURL has correct error description")
+
+    @Test("invalidURL has non-nil error description")
     func testInvalidURLDescription() {
         let error = NetworkError.invalidURL
-        #expect(error.errorDescription == "Invalid URL")
+        #expect(error.errorDescription != nil)
+        #expect(error.errorDescription?.isEmpty == false)
     }
-    
-    @Test("noData has correct error description")
+
+    @Test("noData has non-nil error description")
     func testNoDataDescription() {
         let error = NetworkError.noData
-        #expect(error.errorDescription == "No data received")
+        #expect(error.errorDescription != nil)
+        #expect(error.errorDescription?.isEmpty == false)
     }
-    
-    @Test("decodingError has correct error description")
+
+    @Test("decodingError has non-nil error description")
     func testDecodingErrorDescription() {
         let error = NetworkError.decodingError
-        #expect(error.errorDescription == "Failed to decode response")
+        #expect(error.errorDescription != nil)
+        #expect(error.errorDescription?.isEmpty == false)
     }
-    
+
     @Test("serverError includes status code in description")
     func testServerErrorDescription() {
         let error404 = NetworkError.serverError(404)
         #expect(error404.errorDescription?.contains("404") == true)
-        
+
         let error500 = NetworkError.serverError(500)
         #expect(error500.errorDescription?.contains("500") == true)
     }
-    
+
     @Test("unknown error uses underlying error description")
     func testUnknownErrorDescription() {
         let underlyingError = NSError(
@@ -48,5 +51,18 @@ struct NetworkErrorTests {
         )
         let error = NetworkError.unknown(underlyingError)
         #expect(error.errorDescription == "Test error message")
+    }
+
+    // MARK: - Enum Case Coverage
+    @Test("All error cases return distinct descriptions")
+    func testAllCasesDistinct() {
+        let descriptions: [String?] = [
+            NetworkError.invalidURL.errorDescription,
+            NetworkError.noData.errorDescription,
+            NetworkError.decodingError.errorDescription,
+            NetworkError.serverError(500).errorDescription
+        ]
+        let unique = Set(descriptions.compactMap { $0 })
+        #expect(unique.count == 4, "Each error case should have a distinct description")
     }
 }

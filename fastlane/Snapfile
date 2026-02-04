@@ -1,33 +1,22 @@
 # fastlane/Snapfile
 
-# Devices to capture screenshots on
 devices([
-  "iPhone 17 Pro"
+  "iPhone 17 Pro",
+  "iPad Pro 13-inch (M5)"
 ])
 
-# Languages for screenshots
 languages([
   "en-US"
 ])
 
-# Xcode project and scheme
 project "./BidoneDemo.xcodeproj"
 scheme "BidoneDemo"
-
-# Output directory
 output_directory "./fastlane/screenshots"
-
-# Clear previous screenshots
 clear_previous_screenshots(true)
-
-# Stop after first error
 stop_after_first_error(true)
-
-# Override status bar for clean screenshots
 override_status_bar(true)
-
-# Erase simulator before running
 erase_simulator(true)
-
-# Disable concurrent simulators to avoid resource issues
 concurrent_simulators(false)
+
+# Only run snapshot tests, skip unit tests and other UI tests
+xcargs "'-parallel-testing-enabled' 'NO' '-only-testing:BidoneDemoUITests/SnapshotTests'"

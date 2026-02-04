@@ -58,7 +58,10 @@ protocol NetworkServiceProtocol: Sendable {
 
 // MARK: - Network Service Implementation
 final class NetworkService: NetworkServiceProtocol, Sendable {
-    static let shared = NetworkService()
+    // nonisolated(unsafe) is safe here because NetworkService is stateless and Sendable.
+    // This eliminates the "main actor-isolated static property 'shared' can not be
+    // referenced from a nonisolated context" warning when Stores reference it in init.
+    nonisolated(unsafe) static let shared = NetworkService()
     
     private init() {}
     
@@ -81,7 +84,7 @@ final class NetworkService: NetworkServiceProtocol, Sendable {
             
             let decoder = JSONDecoder()
             let result = try decoder.decode(T.self, from: data)
-            return result    
+            return result
         } catch let error as NetworkError {
             throw error
         } catch let error as DecodingError {
