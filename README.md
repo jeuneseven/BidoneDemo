@@ -1,6 +1,6 @@
 # BidoneDemo
 
-A SwiftUI meal recipe browsing app built with **MVI (Model-View-Intent)** architecture, demonstrating clean code practices, comprehensive testing, and modern iOS development techniques.
+A SwiftUI meal recipe browser built with **MVI (Model-View-Intent)** architecture. This project started as a technical assessment and has evolved into a playground for exploring modern iOS patterns — particularly state management, offline strategies, and architectural trade-offs in enterprise-grade applications.
 
 <p align="center">
   <img src="fastlane/screenshots/en-US/iPhone 17 Pro-01_Categories.png" width="200" />
@@ -167,6 +167,14 @@ GitHub Actions runs on every push to `main`/`master`/`dev` and on pull requests:
 
 MVI enforces unidirectional data flow through explicit Intent → Store → State transitions. This makes state changes predictable and easily testable — each Store can be tested by sending intents and asserting resulting states. For an e-commerce context where order reliability is critical, predictable state management reduces the risk of inconsistent UI states that could lead to user confusion or data loss.
 
+The trade-off is more boilerplate — separate State, Intent, Store files per feature. For a 3-screen demo app this is admittedly over-engineered, but it's the right choice for enterprise applications where multiple developers work on the same codebase and state bugs are expensive to debug in production.
+
+### Why enum-based State instead of struct State?
+
+A struct-based state (like TCA's approach) offers flexibility — you can have `isLoading: Bool` alongside `items: [Item]` and `error: String?`. But it also permits invalid combinations: `isLoading = true` while `error` is non-nil.
+
+Enum states make illegal states unrepresentable at the compiler level. The cost is that transitions become all-or-nothing — you can't partially update state. For the data-fetching pattern used here (idle → loading → loaded/error), enums are a natural fit. For more complex screens with multiple independent loading sections, a struct or nested state approach would be more appropriate.
+
 ### Why `NavigationSplitView` with `NavigationLink`?
 
 The app uses `NavigationSplitView` to support both iPhone and iPad with a single navigation structure. On iPad, it provides a familiar three-column layout (categories sidebar → meals list → detail). On iPhone, it collapses automatically into a push-based stack. Meal cards use `NavigationLink(value:)` with `.navigationDestination(for:)` to ensure reliable push navigation in both collapsed (iPhone) and expanded (iPad) modes — a critical pattern since `onTapGesture`-based binding updates alone don't trigger push navigation in collapsed `NavigationSplitView`.
@@ -177,7 +185,7 @@ The app uses `NavigationSplitView` to support both iPhone and iPad with a single
 
 ### Why `@Observable` over Combine?
 
-The Observation framework (iOS 17+) provides automatic, fine-grained view updates with simpler syntax than `ObservableObject` + `@Published`. It eliminates boilerplate while providing better performance through selective observation.
+The Observation framework (iOS 17+) provides automatic, fine-grained view updates with simpler syntax than `ObservableObject` + `@Published`. It eliminates boilerplate while providing better performance through selective observation — SwiftUI only re-renders views that actually read changed properties, rather than invalidating on any `@Published` change.
 
 ### Reliability-first error handling
 
@@ -189,13 +197,10 @@ All design tokens (spacing, corner radii, colors), strings, and network configur
 
 ## Roadmap
 
-- [ ] **Local search** — Filter categories and meals by name with `.searchable`
-- [ ] **Pull-to-refresh** — Add `.refreshable` to lists for intuitive content refresh
-- [ ] **SPM modularization with TCA** — Extract features into Swift packages using [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) for scalable state management and modular codebase
-- [ ] **Image caching** — Replace `AsyncImage` with a caching layer for smoother scrolling
-- [ ] **Snapshot testing** — Visual regression tests with swift-snapshot-testing
-- [ ] **Offline support** — Local persistence for previously loaded data
+- [ ] **Offline caching** — SwiftData local persistence for previously loaded data, enabling graceful degradation when network is unavailable
+- [ ] **Pull-to-refresh** — `.refreshable` on lists for intuitive content refresh
+- [ ] **Image caching** — Replace `AsyncImage` with `NSCache` + `FileManager` caching layer for smoother scrolling and offline image display
 
 ## License
 
-This project is a technical demo for interview purposes.
+MIT
